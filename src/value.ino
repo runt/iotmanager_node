@@ -45,6 +45,7 @@ PubSubClient client(wclient);
 #define mqtt_user "pepa"
 #define mqtt_password "at90s2313"
 
+#define TEMP_PUBLISH_INTERVAL 5000
 
 
 int devices, newtime, oldtime, view, i;
@@ -74,6 +75,8 @@ void initVar() {
 
   sTopic[0] = prefix + "/" + deviceID + "/anydata0";
   root["id"] = 0;
+  root["page"] = "hlavni";
+  root["pageId"] = 10;
   root["widget"] = "anydata";
   root["topic"]  = sTopic[0];
   root["class1"] = "item no-border text-center";              // class for 1st div
@@ -87,6 +90,8 @@ void initVar() {
   JsonObject& root1 = jsonBuffer.createObject();
   sTopic[1] = prefix + "/" + deviceID + "/anydata1";
   root1["id"] = 1;
+  root["page"] = "hlavni";
+  root["pageId"] = 10;
   root1["widget"] = "anydata";
   root1["topic"] = sTopic[1];
   root1["class1"] = "item no-border";                          // class for 1st div
@@ -245,7 +250,7 @@ void loop() {
   else{
     client.loop();
     newtime = millis();
-    if(newtime-oldtime>1000){
+    if(newtime-oldtime>TEMP_PUBLISH_INTERVAL){
       pubTemperature();
       oldtime = newtime;
     }
