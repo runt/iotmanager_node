@@ -102,7 +102,7 @@ void initVar() {
   root1["style3"] = "float:right;font-weight:bold;";           // style for value
   root1.printTo(thing_config[1]);
 
-  view = 0;
+  view = 1;
 }
 void pubStatus(String t, float temp) {
 
